@@ -1,0 +1,23 @@
+input[type=text] {
+  border: solid 1px black;
+}
+body{
+  background-image: url("./assets/background.jpg");
+  background-color: black;
+  background-position:center center;
+  background-repeat:no-repeat;
+  background-size: cover;
+}
+.logo {
+  color:blueviolet;
+}
+.darkTransparentBackground {
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 50px;
+}
+audio::-webkit-media-controls-panel, video::-webkit-media-controls-panel {
+  
+  background-color: rgba(20, 20, 20, 0.8);
+  border: none;
+  outline:none;
+}
