@@ -1,12 +1,18 @@
 import { useEffect } from 'react';
+import { useSelector } from "react-redux";
 
 const Home = () => {
+  // auth state from redux store
+  const authState = useSelector((state) => state);
+
   useEffect(() => {
-    var accessToken = localStorage.getItem('accessToken');
-    var userId = localStorage.getItem('userId');
-    var isAdmin = localStorage.getItem('isAdmin');
-    console.log(accessToken)
-    console.log(userId,isAdmin);
+    // var accessToken = localStorage.getItem('accessToken');
+    // var userId = localStorage.getItem('userId');
+    // var isAdmin = localStorage.getItem('isAdmin');
+    // console.log(accessToken)
+    // console.log(userId,isAdmin);
+    console.log(authState);
+    // eslint-disable-next-line
   },[]);
   return ( 
     <>

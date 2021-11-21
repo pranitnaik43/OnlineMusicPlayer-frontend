@@ -1,5 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react';
+import { useDispatch } from "react-redux";
+import { SET } from '../../reducers/authReducer'; 
 import {toast} from 'react-toastify'; 
 import 'react-toastify/dist/ReactToastify.css'; 
 toast.configure() 
@@ -12,6 +14,10 @@ const Login = ({history}) => {
 
   const [data, setData] = useState({...dataTemplate});
   const [errors, setErrors] = useState({...dataTemplate});
+
+  // redux for auth
+  const dispatch = useDispatch();
+  const setAuth = (data) => dispatch({ type: SET, data });
 
   const validatePassword = (password) => {
     let passErrors = [];
@@ -67,7 +73,6 @@ const Login = ({history}) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     var config = {
       method: 'post',
       url: process.env.REACT_APP_SERVER_URL+"/auth/signin",
@@ -80,9 +85,14 @@ const Login = ({history}) => {
       console.log(response);
       if(response.data.success) {
         let accessToken = response.data.success.accessToken;
+        let isAdmin = false;
 
         if(accessToken) {
-          localStorage.setItem('accessToken', accessToken);
+          // localStorage.setItem('accessToken', accessToken);
+          if(response.data.success.isAdmin) {
+            isAdmin = true;
+          }
+          setAuth({ accessToken, isAdmin });
           toast.success("Login Successful", {autoClose: 5000});
           
           history.push("/home");

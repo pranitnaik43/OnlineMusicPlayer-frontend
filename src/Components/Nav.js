@@ -1,15 +1,25 @@
 import {NavLink, withRouter} from 'react-router-dom';
+import { useSelector, useDispatch } from "react-redux";
+import { EMPTY } from "../reducers/authReducer";
 
 const Nav = ({ history }) => {
-  let accessToken = localStorage.getItem("accessToken");
+  // let accessToken = localStorage.getItem("accessToken");
   // console.log("check",accessToken);
-  if(!accessToken) {
-    // history.push("/login");
-  }
+  // if(!accessToken) {
+  //   history.push("/login");
+  // }
+
+  // auth state from redux store
+  const authState = useSelector((state) => state);
+  let accessToken = authState.accessToken;
+  // dispatch actions for auth reducer
+  const dispatch = useDispatch();
+  const resetAuth = () => dispatch({ type: EMPTY });
 
   const handleLogout = (e) => {
-    localStorage.setItem("accessToken", "");
-    history.push("/login");
+    // localStorage.setItem("accessToken", "");
+    // history.push("/login");
+    resetAuth();
   }
 
   return ( 

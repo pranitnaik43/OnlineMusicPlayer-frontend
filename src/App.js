@@ -1,4 +1,7 @@
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { Provider } from "react-redux";
+
+import { store } from "./store";
 import './App.css';
 import Nav from './Components/Nav';
 import AddSong from "./Components/AddSong";
@@ -10,22 +13,24 @@ import MusicPlayer from './Components/MusicPlayer';
 function App() {
   return (
     <div>
-    <BrowserRouter>
-        <h1 className="logo m-2">MyMusic</h1>
-        <Nav/>
-        <div className="container-fluid">
-          <Switch>
-          <Route exact path="/home" component={Home}></Route>
-            <Route path="/add-song" component={AddSong}></Route>
-            <Route path="/song/:id" component={MusicPlayer}></Route>
-            <Route path="/login" component={Login}></Route>
-            <Route path="/signup" component={Signup}></Route>
-            <Route path="/" exact>
-              <Redirect to="/home" />
-            </Route>
-          </Switch>
-        </div>
-    </BrowserRouter>
+      <BrowserRouter>
+        <Provider store={store}>
+          <h1 className="logo m-2">MyMusic</h1>
+          <Nav />
+          <div className="container-fluid">
+            <Switch>
+              <Route exact path="/home" component={Home}></Route>
+              <Route path="/add-song" component={AddSong}></Route>
+              <Route path="/song/:id" component={MusicPlayer}></Route>
+              <Route path="/login" component={Login}></Route>
+              <Route path="/signup" component={Signup}></Route>
+              <Route path="/" exact>
+                <Redirect to="/home" />
+              </Route>
+            </Switch>
+          </div>
+        </Provider>
+      </BrowserRouter>
     </div>
   );
 }
