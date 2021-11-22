@@ -3,6 +3,10 @@ import { useState, useEffect } from "react";
 import axios from 'axios';
 import { useSelector } from "react-redux";
 
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+toast.configure()
+
 const AddtoPlaylistsModal = ({ songId, showModal, setShowModal }) => {
   // auth state from redux store
   const authState = useSelector((state) => state);
@@ -18,7 +22,7 @@ const AddtoPlaylistsModal = ({ songId, showModal, setShowModal }) => {
   };
 
   useEffect(() => {
-    if(showModal===false) {
+    if (showModal === false) {
       setCheckedPlaylists([]);
     }
     // eslint-disable-next-line
@@ -33,17 +37,17 @@ const AddtoPlaylistsModal = ({ songId, showModal, setShowModal }) => {
         response.data.reverse();
         setPlaylists(response.data);
       }
-    }).catch(function(err) {
+    }).catch(function (err) {
       console.log(err);
     });
     // eslint-disable-next-line
   }, []);
 
   const isPlaylistAdded = (playlistId) => {
-    if(checkedPlaylists 
-      && Array.isArray(checkedPlaylists) 
+    if (checkedPlaylists
+      && Array.isArray(checkedPlaylists)
       && checkedPlaylists.includes(playlistId)) {
-        return true;
+      return true;
     }
     return false;
   }
@@ -53,11 +57,11 @@ const AddtoPlaylistsModal = ({ songId, showModal, setShowModal }) => {
     let value = e.target.value;
     let checked = e.target.checked;
     // console.log(value,checked);
-    if(checked && !tempPlaylists.includes(value)) {
+    if (checked && !tempPlaylists.includes(value)) {
       tempPlaylists.push(value);
     }
-    else if(!checked) {
-      tempPlaylists = tempPlaylists.filter(playlistId => (playlistId!==value));
+    else if (!checked) {
+      tempPlaylists = tempPlaylists.filter(playlistId => (playlistId !== value));
     }
     setCheckedPlaylists([...tempPlaylists]);
   }
@@ -69,12 +73,17 @@ const AddtoPlaylistsModal = ({ songId, showModal, setShowModal }) => {
     config.method = "PUT";
     config.data = { playlists: checkedPlaylists };
     axios(config).then(response => {
-      if (response.data.error) {
-        console.log(response.data.error.message);
-      } else if(response.data.success) {
-        console.log(response.data.success.message);
+      if (response.data) {
+        if (response.data.error) {
+          console.log(response.data.error.message);
+          toast.error(response.data.error.message, { autoClose: 5000 });
+        } else if (response.data.success) {
+          console.log(response.data.success.message);
+          toast.success(response.data.success.message, { autoClose: 5000 });
+        }
       }
-    }).catch(function(err) {
+      setShowModal(false);
+    }).catch(function (err) {
       console.log(err);
     });
   }
@@ -94,7 +103,7 @@ const AddtoPlaylistsModal = ({ songId, showModal, setShowModal }) => {
               {
                 playlists.map((playlist) => (
                   <div className="form-check" key={playlist._id}>
-                    <input name="playlists" className="form-check-input" type="checkbox" value={playlist._id} onChange={ handleChange } checked={isPlaylistAdded(playlist._id)}/>
+                    <input name="playlists" className="form-check-input" type="checkbox" value={playlist._id} onChange={handleChange} checked={isPlaylistAdded(playlist._id)} />
                     <label className="form-check-label">
                       {playlist.name}
                     </label>
@@ -105,7 +114,7 @@ const AddtoPlaylistsModal = ({ songId, showModal, setShowModal }) => {
           </Modal.Body>
           <Modal.Footer>
             <button type="button" className="btn btn-secondary" onClick={() => { setShowModal(false) }}>Close</button>
-            <button type="submit" className="btn btn-primary" onClick={ handleSubmit }>Submit</button>
+            <button type="submit" className="btn btn-primary" onClick={handleSubmit}>Submit</button>
           </Modal.Footer>
         </form>
       </Modal>

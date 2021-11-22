@@ -132,6 +132,7 @@ const SongForm = ({title, method, serverURL, oldSongData}) => {
       }
       else if(response.data.success) {
         toast.success("Song added successfully", {autoClose: 5000});
+        history.push("/home");
         console.log(response.data.success);
       }
     });

@@ -75,7 +75,7 @@ const Playlist = ({ history }) => {
   }, [])
 
   return (
-    <div className="container darkTransparentBackground">
+    <div className="container darkTransparentBackground mt-3 p-3">
       {/* {console.log(playlist)} */}
       {
         (playlist) ? (
@@ -94,7 +94,7 @@ const Playlist = ({ history }) => {
                           <div className="dropdown position-absolute p-1" style={{ top: "0.5rem", right: "0.5rem", zIndex: 1 }}>
                             <i className="fa fa-caret-down px-2 py-1 bg-light rounded-circle" id="dropdownMenuButton" data-toggle="dropdown"></i>
                             <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                              <button className="dropdown-item" onClick={() => {  }}>Remove from playlist</button>
+                              <button className="dropdown-item" onClick={() => { history.push("/song/"+song._id) }}>Remove from playlist</button>
                             </div>
                           </div>
                           <button className="px-3 py-3 text-white d-flex w-100 position-relative border border-dark rounded-lg bg-gray-900" onClick={() => { history.push("/playlist/" + playlist._id) }}>

@@ -110,7 +110,7 @@ const Playlists = ({ history }) => {
     });
   }
   return (
-    <div className="container darkTransparentBackground">
+    <div className="container darkTransparentBackground mt-3 p-3">
       <div className="d-flex justify-content-end">
         <button type="button" className="btn btn-primary" onClick={createPlaylist}>
           <i className="fa fa-plus pr-2"></i> Create Playlist
@@ -151,7 +151,7 @@ const Playlists = ({ history }) => {
             <div className="input-group-prepend">
               <span className="input-group-text" id="inputGroup-sizing-default">Playlist Name</span>
             </div>
-            <input type="text" className="form-control" value={data.name} onChange={handleChange} />
+            <input type="text" className="form-control" value={data.name} onChange={handleChange} autoFocus/>
             <span className="text-danger">{data.error}</span>
           </div>
         </Modal.Body>

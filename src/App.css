@@ -13,24 +13,31 @@ body{
 }
 .darkTransparentBackground {
   background-color: rgba(0, 0, 0, 0.4);
-  padding: 50px;
+  /* padding: 50px; */
 }
 
 .lyrics::-webkit-scrollbar {
   width: 12px;
 }
-
 .lyrics::-webkit-scrollbar-track {
-  /* -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);  */
   border-radius: 10px;
 }
-
 .lyrics::-webkit-scrollbar-thumb {
   border-radius: 10px;
   background-color: red;
-  /* -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);  */
 }
 
+
+.homePlaylist::-webkit-scrollbar {
+  width: 5px;
+  display: none;
+}
+.homePlaylist::-webkit-scrollbar-track {
+  display: none;
+}
+.homePlaylist::-webkit-scrollbar-thumb {
+  display: none;
+}
 
 .bg-gradient-primary {
   background-color: #4e73df;

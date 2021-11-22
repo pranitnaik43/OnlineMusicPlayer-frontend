@@ -58,7 +58,7 @@ const MusicPlayer = ({ history }) => {
 
   return (
     <>
-      <div className="container darkTransparentBackground">
+      <div className="container darkTransparentBackground mt-3 p-3">
         {
           (songDetails) ? (
             <div style={{ marginBottom: "100px" }}>
