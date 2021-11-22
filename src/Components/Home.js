@@ -6,11 +6,6 @@ const Home = () => {
   const authState = useSelector((state) => state);
 
   useEffect(() => {
-    // var accessToken = localStorage.getItem('accessToken');
-    // var userId = localStorage.getItem('userId');
-    // var isAdmin = localStorage.getItem('isAdmin');
-    // console.log(accessToken)
-    // console.log(userId,isAdmin);
     console.log(authState);
     // eslint-disable-next-line
   },[]);

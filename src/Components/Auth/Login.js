@@ -88,7 +88,6 @@ const Login = ({history}) => {
         let isAdmin = false;
 
         if(accessToken) {
-          // localStorage.setItem('accessToken', accessToken);
           if(response.data.success.isAdmin) {
             isAdmin = true;
           }

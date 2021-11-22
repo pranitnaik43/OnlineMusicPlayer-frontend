@@ -1,11 +1,22 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from 'axios';
+import { useSelector } from "react-redux";
+import { useHistory } from 'react-router-dom';
 
 import {toast} from 'react-toastify'; 
 import 'react-toastify/dist/ReactToastify.css'; 
 toast.configure() 
 
-const AddSong = ({history}) => {
+const SongForm = ({title, method, serverURL, oldSongData}) => {
+
+  // auth state from redux store
+  const authState = useSelector((state) => state);
+
+  const history = useHistory();
+
+  if(!authState.isAdmin) {
+    history.replace("/home");
+  }
 
   const [songData, setSong] = useState({
     name: '',
@@ -19,6 +30,16 @@ const AddSong = ({history}) => {
     song: '',
     thumbnail: ''
   });
+
+  useEffect(() => {
+    if(oldSongData) {
+      songData.name = oldSongData.name;
+      songData.artists = oldSongData.artists;
+      songData.lyrics = oldSongData.lyrics;
+      setSong({...songData});
+    }
+    // eslint-disable-next-line
+  }, [])
 
   const supportedAudioMimeTypes = ['audio/mp3', 'audio/mpeg'];
   const supportedThumnbnailMimeTypes = ['image/jpeg', 'image/webp', 'image/png'];
@@ -88,17 +109,17 @@ const AddSong = ({history}) => {
   let handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log("fileType: "+songData.song.type);
+    // console.log("fileType: "+songData.song.type);
     let data = new FormData();
     Object.keys(songData).forEach(key => {
       data.append(key, songData[key]);
     });
     
     var config = {
-      method: 'POST',
-      url: process.env.REACT_APP_SERVER_URL+'/songs',
+      method: method,
+      url: serverURL,
       headers: { 
-        'access-token': localStorage.getItem("accessToken"),
+        'access-token': authState.accessToken,
         'Content-Type': 'multipart/form-data'
       }, 
       data: data
@@ -120,7 +141,7 @@ const AddSong = ({history}) => {
     <>
       <div className="row my-4 justify-content-center">
         <div className="col-12 col-sm-8 col-md-6 darkTransparentBackground px-5 py-4">
-          <h1 className="text-center text-primary">Add song</h1>
+          <h1 className="text-center text-primary">{title}</h1>
           <hr/>
           <form>
             <div className="form-group">
@@ -135,16 +156,16 @@ const AddSong = ({history}) => {
             </div>
             <div className="form-group">
               <label htmlFor="name" className="text-warning">Song Name</label>
-              <input name="name" type="text" className="form-control" onChange={handleChange}/>
+              <input name="name" type="text" className="form-control" onChange={handleChange} value={songData.name}/>
               <span className="text-danger">{errors.name}</span>
             </div>
             <div className="form-group">
               <label htmlFor="artists" className="text-warning">Artists</label>
-              <input name="artists" type="text" className="form-control" onChange={handleChange}/>
+              <input name="artists" type="text" className="form-control" onChange={handleChange} value={songData.artists}/>
             </div>
             <div className="form-group">
               <label htmlFor="lyrics" className="text-warning">Lyrics</label>
-              <textarea name="lyrics" className="form-control" rows="3" onChange={handleChange} ></textarea>
+              <textarea name="lyrics" className="form-control" rows="3" onChange={handleChange} value={songData.lyrics}></textarea>
             </div>
             <button type="submit" className="btn btn-primary" onClick={ handleSubmit } disabled={!canSubmit()}>Submit</button>
           </form>
@@ -154,4 +175,4 @@ const AddSong = ({history}) => {
   );
 }
  
-export default AddSong;
+export default SongForm;

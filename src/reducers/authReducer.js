@@ -3,7 +3,13 @@ import Cookies from 'js-cookie'
 export const SET = "SET";
 export const EMPTY = "EMPTY";
 
-export const authReducer = (state={accessToken: null, isAdmin: false}, action) => {
+let accessToken = Cookies.get("accessToken"); 
+if(!accessToken) accessToken = null;
+
+let isAdmin = Cookies.get("isAdmin");
+if(!isAdmin) isAdmin = false;
+
+export const authReducer = (state={accessToken: accessToken, isAdmin: isAdmin}, action) => {
   switch(action.type) {
     case SET: {
       if(action.data) {
