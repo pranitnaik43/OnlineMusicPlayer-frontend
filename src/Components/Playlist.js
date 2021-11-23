@@ -97,10 +97,10 @@ const Playlist = ({ history }) => {
                               <button className="dropdown-item" onClick={() => { history.push("/song/"+song._id) }}>Remove from playlist</button>
                             </div>
                           </div>
-                          <button className="px-3 py-3 text-white d-flex w-100 position-relative border border-dark rounded-lg bg-gray-900" onClick={() => { history.push("/playlist/" + playlist._id) }}>
+                          <button className="px-3 py-3 text-white d-flex w-100 position-relative border border-dark rounded-lg bg-gray-900" onClick={() => { history.push("/song/" + song._id) }}>
                             <div className="row">
                               <div className="col-2"> 
-                                <img className="rounded w-100" src={process.env.REACT_APP_SERVER_URL + '/thumbnail/' + song.thumbnaildetails.filename} alt="..."></img> 
+                                <img className="rounded w-100" src={process.env.REACT_APP_SERVER_URL + '/thumbnail/' + song.thumbnaildetails.filename} onError={(e) => {e.target.src="https://place-hold.it/300x400/0ff/0ff"}} alt="..."></img> 
                               </div>
                               <div className="col-5 text-danger d-flex align-items-center"> 
                                 <strong>{song.name}</strong>

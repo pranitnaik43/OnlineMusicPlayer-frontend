@@ -42,7 +42,7 @@ const Playlists = ({ history }) => {
     let config = { ...configTemp };
     config.method = methods.GET;
     axios(config).then(response => {
-      // console.log(response.data);
+      console.log(response.data);
       if (response.data && Array.isArray(response.data)) {
         response.data.reverse();
         setPlaylists(response.data);
@@ -76,7 +76,7 @@ const Playlists = ({ history }) => {
 
   const getRandomColor = () => {
     let length = colors.length;
-    let randomNum = Math.round(Math.random() * length);
+    let randomNum = Math.floor(Math.random() * length);
     return colors[randomNum];
   }
 
@@ -112,7 +112,7 @@ const Playlists = ({ history }) => {
   return (
     <div className="container darkTransparentBackground mt-3 p-3">
       <div className="d-flex justify-content-end">
-        <button type="button" className="btn btn-primary" onClick={createPlaylist}>
+        <button type="button" className="btn btn-outline-primary" onClick={createPlaylist}>
           <i className="fa fa-plus pr-2"></i> Create Playlist
         </button>
       </div>
@@ -129,7 +129,7 @@ const Playlists = ({ history }) => {
                       <button className="dropdown-item" onClick={() => { crudAction(methods.DELETE, playlist._id) }}>Delete</button>
                     </div>
                   </div>
-                  <button className={"p-5 text-white d-flex justify-content-center w-100 position-relative boreder border-dark rounded-lg bg-gradient-" + playlist.color} onClick={() => { history.push("/playlist/"+playlist._id) }}>
+                  <button className={"p-5 text-white d-flex justify-content-center w-100 position-relative border border-dark rounded-lg bg-gradient-" + playlist.color} onClick={() => { history.push("/playlist/"+playlist._id) }}>
                     <div>{playlist.name}</div>
                   </button>
                 </div>

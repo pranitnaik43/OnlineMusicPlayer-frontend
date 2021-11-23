@@ -87,7 +87,8 @@ const Home = () => {
                             <Link to={"/song/"+song._id}> 
                               <img className="rounded w-100 mx-auto"
                                 src={process.env.REACT_APP_SERVER_URL + '/thumbnail/' + song.thumbnaildetails.filename}
-                                alt="..."></img>
+                                onError={(e) => {e.target.src="https://place-hold.it/300x400/0ff/0ff"}}
+                                alt={song.name}></img>
                             </Link>
                             <div className="text-center text-warning mx-auto">{song.name}</div>
                           </div>

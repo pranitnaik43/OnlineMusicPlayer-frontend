@@ -74,7 +74,7 @@ const MusicPlayer = ({ history }) => {
                 <div className="p-3 col-6 col-sm-6 col-md-4 col-lg-3">
                   <div className="d-flex">
                     <img className="img-fluid rounded"
-                      src={process.env.REACT_APP_SERVER_URL + '/thumbnail/' + songDetails.thumbnaildetails.filename} alt="..."></img>
+                      src={process.env.REACT_APP_SERVER_URL + '/thumbnail/' + songDetails.thumbnaildetails.filename} onError={(e) => {e.target.src="https://place-hold.it/300x400/0ff/0ff"}} alt="..."></img>
                   </div>
                 </div>
 
