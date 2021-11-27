@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from 'axios';
 import { useSelector } from "react-redux";
 import { useParams } from "react-router";
+import { mediaURL } from './Constants';
 
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -100,7 +101,7 @@ const Playlist = ({ history }) => {
                           <button className="px-3 py-3 text-white d-flex w-100 position-relative border border-dark rounded-lg bg-gray-900" onClick={() => { history.push("/song/" + song._id) }}>
                             <div className="row">
                               <div className="col-2"> 
-                                <img className="rounded w-100" src={process.env.REACT_APP_SERVER_URL + '/thumbnail/' + song.thumbnaildetails.filename} onError={(e) => {e.target.src="https://place-hold.it/300x400/0ff/0ff"}} alt="..."></img> 
+                                <img className="rounded w-100" src={mediaURL + song.thumbnaildetails.blobname} onError={(e) => {e.target.src="https://place-hold.it/300x300/0ff/0ff"}} alt="..."></img> 
                               </div>
                               <div className="col-5 text-danger d-flex align-items-center"> 
                                 <strong>{song.name}</strong>

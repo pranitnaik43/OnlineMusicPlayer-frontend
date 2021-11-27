@@ -12,6 +12,7 @@ import MusicPlayer from './Components/Song/MusicPlayer';
 import Playlists from './Components/Playlists';
 import Playlist from './Components/Playlist';
 import EditSong from './Components/Song/EditSong';
+import SearchResults from './Components/SearchResults';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
               <Route path="/song/:id" component={MusicPlayer}></Route>
               <Route path="/playlists" component={Playlists}></Route>
               <Route path="/playlist/:id" component={Playlist}></Route>
+              <Route path="/search-results" component={SearchResults}></Route>
               <Route path="/login" component={Login}></Route>
               <Route path="/signup" component={Signup}></Route>
               <Route path="/" exact>

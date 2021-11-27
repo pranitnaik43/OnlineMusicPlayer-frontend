@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";  
 import axios from 'axios';
+import { mediaURL } from './Constants';
+import SearchSong from './SearchSongs';
 
 const Home = () => {
   // auth state from redux store
@@ -18,7 +20,6 @@ const Home = () => {
   useEffect(() => {
     try {
       const getData = async () => {
-
         let allSongs = [], tempPlaylists = [], playlistSongs = [];
 
         //get all songs
@@ -71,8 +72,9 @@ const Home = () => {
   }, [])
 
   return (
-    <div className="container-fluid darkTransparentBackground mt-3 p-3">
-      {console.log(playlists)}
+    <div className="container darkTransparentBackground mt-3 p-3">
+      <SearchSong />
+      {/* {console.log(playlists)} */}
       {
         (playlists && playlists.length>0) ? (
           <>
@@ -86,8 +88,8 @@ const Home = () => {
                           <div className="col-7 col-sm-4 col-md-3 col-lg-3 col-xl-2 d-flex-column" key={song._id}>
                             <Link to={"/song/"+song._id}> 
                               <img className="rounded w-100 mx-auto"
-                                src={process.env.REACT_APP_SERVER_URL + '/thumbnail/' + song.thumbnaildetails.filename}
-                                onError={(e) => {e.target.src="https://place-hold.it/300x400/0ff/0ff"}}
+                                src={mediaURL + song.thumbnaildetails.blobname}
+                                onError={(e) => {e.target.src="https://place-hold.it/300x300/0ff/0ff"}}
                                 alt={song.name}></img>
                             </Link>
                             <div className="text-center text-warning mx-auto">{song.name}</div>

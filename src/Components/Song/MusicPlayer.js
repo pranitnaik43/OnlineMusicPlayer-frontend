@@ -5,6 +5,7 @@ import axios from "axios";
 import { deleteSong } from "./DeleteSong";
 import './MusicPlayer.css';
 import AddtoPlaylistsModal from "../AddToPlaylistsModal";
+import { mediaURL } from '../Constants';
 
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -74,7 +75,7 @@ const MusicPlayer = ({ history }) => {
                 <div className="p-3 col-6 col-sm-6 col-md-4 col-lg-3">
                   <div className="d-flex">
                     <img className="img-fluid rounded"
-                      src={process.env.REACT_APP_SERVER_URL + '/thumbnail/' + songDetails.thumbnaildetails.filename} onError={(e) => {e.target.src="https://place-hold.it/300x400/0ff/0ff"}} alt="..."></img>
+                      src={mediaURL + songDetails.thumbnaildetails.blobname} onError={(e) => {e.target.src="https://place-hold.it/300x300/0ff/0ff"}} alt="..."></img>
                   </div>
                 </div>
 
@@ -119,7 +120,7 @@ const MusicPlayer = ({ history }) => {
               <div className="myAudioPlayer border border-warning fixed-bottom px-5 py-2 mx-3 mb-4">
                 <audio controls autoPlay className="w-100" controlsList="nodownload noplaybackrate"
                 >
-                  <source src={process.env.REACT_APP_SERVER_URL + '/song/' + songDetails.songdetails.filename} type="audio/ogg" />
+                  <source src={ mediaURL + songDetails.songdetails.blobname } type="audio/ogg" />
                 </audio>
               </div>
             </div>
