@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";  
 import axios from 'axios';
 import { mediaURL } from './Constants';
-import SearchSong from './SearchSongs';
 
 const Home = () => {
   // auth state from redux store
@@ -73,7 +72,6 @@ const Home = () => {
 
   return (
     <div className="container darkTransparentBackground mt-3 p-3">
-      <SearchSong />
       {/* {console.log(playlists)} */}
       {
         (playlists && playlists.length>0) ? (

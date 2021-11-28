@@ -14,11 +14,11 @@ const SearchSong = () => {
 
   return (
     <>
-      <form className="form-inline my-2 my-lg-0" onSubmit={handleSubmit}>
-        <div className="input-group w-75 mx-auto my-4">
+      <form className="form-inline" onSubmit={handleSubmit}>
+        <div className="input-group">
           <input className="form-control" type="search" onChange={(e) => { setText(e.target.value) }} placeholder="Search..." />
           <div className="input-group-append" id="button-addon4">
-            <button className="btn btn-outline-secondary" type="button" onClick={handleSubmit}><i className="fa fa-search"></i></button>
+            <button className="btn btn-outline-light" type="button" onClick={handleSubmit}><i className="fa fa-search"></i></button>
           </div>
         </div>
       </form>

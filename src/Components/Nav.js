@@ -2,6 +2,7 @@ import { NavLink, withRouter } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
 import { EMPTY } from "../reducers/authReducer";
 import { useEffect } from 'react';
+import SearchSongs from "./SearchSongs";
 
 const Nav = ({ history }) => {
 
@@ -34,9 +35,14 @@ const Nav = ({ history }) => {
         </button>
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
-
-            <NavLink className="nav-link" to="/home">Home</NavLink>
-            <NavLink className="nav-link" to="/playlists">Playlists</NavLink>
+            {
+              (authState.accessToken) ? (
+                <>
+                  <NavLink className="nav-link" to="/home">Home</NavLink>
+                  <NavLink className="nav-link" to="/playlists">Playlists</NavLink>
+                </>
+              ) : (<></>)
+            }
             {
               (authState.isAdmin) ? (
                 <>
@@ -48,7 +54,11 @@ const Nav = ({ history }) => {
           <ul className="navbar-nav ml-auto">
             {
               (authState.accessToken) ? (
+                <>
+                <SearchSongs />
+                <li className="mx-3"/>
                 <li className="nav-link" onClick={(e) => { handleLogout(e) }}>Logout</li>
+                </>
               ) : (
                 <>
                   <NavLink className="nav-link" to="/login">Login</NavLink>

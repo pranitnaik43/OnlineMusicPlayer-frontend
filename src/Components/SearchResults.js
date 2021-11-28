@@ -9,11 +9,12 @@ const SearchResults = ({ location, history }) => {
 
   const [songs, setSongs] = useState([]);
 
-  useEffect(() => {
-    try {
-      let paramsString = location.search;
+  let paramsString = location.search;
       let searchParams = new URLSearchParams(paramsString);
       let text = searchParams.get("text");
+
+  useEffect(() => {
+    try {
       if (!text) {
         history.goBack();
       }
@@ -37,16 +38,19 @@ const SearchResults = ({ location, history }) => {
       console.log(err);
     }
     // eslint-disable-next-line
-  }, [])
+  }, [text])
 
   return (
-    <>
+    <div className="container darkTransparentBackground mt-3 p-3">
+      <div className="">
+        <h3 className="text-warning mb-3">Search Results</h3>
       {
         (songs) ? (
           <SongsList songs={songs} />
         ) : (<></>)
       }
-    </>
+      </div>
+    </div>
   );
 }
 

@@ -1,8 +1,13 @@
 import { useHistory } from "react-router";
 import { mediaURL } from './Constants';
+import AddtoPlaylistsModal from "./AddToPlaylistsModal";
+import { useState } from "react";
 
 const SongsList = ({ songs }) => {
   const history = useHistory();
+
+  //modal for playlists
+  const [showModal, setShowModal] = useState(false);
 
   return (
     <>
@@ -12,11 +17,12 @@ const SongsList = ({ songs }) => {
             (
               songs.map((song) => (
                 <li className="list-group-item position-relative m-0 p-0" key={song._id}>
-                  {/* <div className="position-relative"> */}
                   <div className="dropdown position-absolute p-1" style={{ top: "0.5rem", right: "0.5rem", zIndex: 1 }}>
                     <i className="fa fa-caret-down px-2 py-1 bg-light rounded-circle" id="dropdownMenuButton" data-toggle="dropdown"></i>
                     <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                      <button className="dropdown-item" onClick={() => { history.push("/song/" + song._id) }}>Remove from playlist</button>
+                      <button className="dropdown-item" onClick={() => { setShowModal(true) }}>Add to playlist</button>
+                  <AddtoPlaylistsModal songId={song._id} showModal={showModal} setShowModal={setShowModal}/>
+
                     </div>
                   </div>
                   <button className="px-3 py-3 text-white d-flex w-100 position-relative border border-dark rounded-lg bg-gray-900" onClick={() => { history.push("/song/" + song._id) }}>
@@ -32,7 +38,7 @@ const SongsList = ({ songs }) => {
                   {/* </div> */}
                 </li>
               ))
-            ) : (<li className="list-group-item text-center text-danger"> Paylist is empty </li>)
+            ) : (<li className="list-group-item bg-secondary text-center text-light"> No Song found </li>)
         }
       </ul>
     </>
